@@ -61,8 +61,6 @@ if __name__ == "__main__":
     # functia tracker are nevoie de path-ul videoului
     # si de coordonatele regiunii de interes
 
-    #tracker("videos/video0.mp4", 350, 720, 200, 900)
-    #tracker("videos/video1.mp4", 350, 720, 100, 500)
-    #tracker("videos/video1.mp4", 350, 720, 500, 1100)
-    #tracker("videos/video2.mp4", 700, 1000, 200, 1300)  # destul de nereusita incercarea
-    tracker("videos/video3.mp4", 300, 720, 300, 1100)
+    tracker("video0.mp4", 350, 720, 200, 900)
+    
+    #tracker("video2.mp4", 700, 1000, 200, 1300)  # destul de nereusita incercarea
