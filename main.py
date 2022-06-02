@@ -7,7 +7,7 @@ def tracker(video, i_start, i_stop, j_start, j_stop):
     cap = cv2.VideoCapture(video)
 
     # detectarea obiectului
-    object_detector = cv2.createBackgroundSubtractorMOG2(history=100, varThreshold=70)
+    object_detector = cv2.createBackgroundSubtractorMOG2(history=500, varThreshold=50)
 
     while True:
         _, frame = cap.read()
@@ -31,7 +31,7 @@ def tracker(video, i_start, i_stop, j_start, j_stop):
             if area > 1000:
 
                 x, y, w, h = cv2.boundingRect(contour)
-                cv2.rectangle(region_of_interest, (x, y), (x + w, y + h), (0, 255, 0), 3)
+                #cv2.rectangle(region_of_interest, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
                 detections.append([x, y, w, h])
 
@@ -61,6 +61,8 @@ if __name__ == "__main__":
     # functia tracker are nevoie de path-ul videoului
     # si de coordonatele regiunii de interes
 
-    tracker("video0.mp4", 350, 720, 200, 900)
-    
-    #tracker("video2.mp4", 700, 1000, 200, 1300)  # destul de nereusita incercarea
+    tracker("videos/video0.mp4", 350, 720, 200, 900)
+    #tracker("videos/video1.mp4", 350, 720, 100, 500)
+    #tracker("videos/video1.mp4", 350, 720, 500, 1100)
+    #tracker("videos/video2.mp4", 700, 1000, 200, 1300)  # destul de nereusita incercarea
+    #tracker("videos/video3.mp4", 300, 720, 300, 1100)
