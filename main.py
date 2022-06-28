@@ -3,14 +3,22 @@ from tracker import *
 
 
 def tracker(video, i_start, i_stop, j_start, j_stop):
+
     tracker = EuclideanDistTracker()
     cap = cv2.VideoCapture(video)
 
     # detectarea obiectului
     object_detector = cv2.createBackgroundSubtractorMOG2(history=500, varThreshold=50)
 
+    i = 0
+    j = 0
+
     while True:
-        _, frame = cap.read()
+        ret, frame = cap.read()
+
+        if not ret:
+            break
+
         height, width, _ = frame.shape
 
         # extrag regiunea de interes
@@ -36,15 +44,28 @@ def tracker(video, i_start, i_stop, j_start, j_stop):
                 detections.append([x, y, w, h])
 
         # 2. Incercarea de a face tracking
+
+        k = 0
+
         boxes_ids = tracker.update(detections)
         for box_id in boxes_ids:
             x, y, w, h, id = box_id
+            k += 1
 
             cv2.rectangle(region_of_interest, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
         cv2.imshow("roi", region_of_interest)
         cv2.imshow("Frame", frame)
         cv2.imshow("Mask", mask)
+
+        #if i % 30 == 0:
+            #cv2.imwrite('Frame' + str(j) + '.jpg', frame)
+            #f = open("videos/kpis/video3/file.txt", "a")
+            #f.write("Frame: " + str(j) + ", detected no. of objects: " + str(k) + "\n")
+            #f.close()
+            #j += 1
+
+        #i += 1
 
 
         key = cv2.waitKey(30)
@@ -61,8 +82,9 @@ if __name__ == "__main__":
     # functia tracker are nevoie de path-ul videoului
     # si de coordonatele regiunii de interes
 
-    tracker("videos/video0.mp4", 350, 720, 200, 900)
-    #tracker("videos/video1.mp4", 350, 720, 100, 500)
-    #tracker("videos/video1.mp4", 350, 720, 500, 1100)
-    #tracker("videos/video2.mp4", 700, 1000, 200, 1300)  # destul de nereusita incercarea
-    #tracker("videos/video3.mp4", 300, 720, 300, 1100)
+    #tracker("videos/video0.mp4", 350, 720, 200, 900)
+    #tracker("videos/video1.mp4", 350, 720, 100, 1100)
+    tracker("videos/video2.mp4", 300, 720, 300, 1100)
+
+
+
